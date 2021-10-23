@@ -2,13 +2,12 @@
   import { onMount } from "svelte";
   import TypeAhead from "svelte-typeahead";
   import { REQUEST_CONFIG } from "./config";
-  import { dummyCourses } from "./dev-env";
 
-  let show = true;
+  let show = false;
   let courses = [];
 
   async function fetchCourses() {
-    return (courses = dummyCourses);
+    // return (courses = dummyCourses);
     const sessKey = document.head.textContent.match(/sesskey":"(.*?)"/)?.[1];
     if (!sessKey) return;
     const path = `https://moodle.bfh.ch/lib/ajax/service.php?sesskey=${sessKey}&info=core_course_get_enrolled_courses_by_timeline_classification`;
@@ -57,8 +56,8 @@
       hideLabel
       class="type-ahead"
       value="al"
+      on:blur={() => (show = false)}
     />
-    <!-- on:blur={() => (show = false)} -->
   </div>
 {/if}
 
@@ -71,11 +70,6 @@
     top: 20%;
     transform: translateX(-50%);
     width: 500px;
-  }
-
-  .result {
-    width: 100%;
-    background: red;
   }
 
   :global([data-svelte-typeahead]) {
@@ -98,6 +92,7 @@
     color: white;
     position: relative;
     padding: 10px 10px;
+    padding-bottom: 5;
     font-size: 20px;
 
     box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -117,8 +112,10 @@
     border-right: 2px solid $border-color;
     border-bottom: 2px solid $border-color;
     max-width: 100%;
+    min-height: 5px;
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2),
       0 12px 20px 0 rgba(0, 0, 0, 0.19);
 
