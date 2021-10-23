@@ -2,13 +2,11 @@
   import { onMount } from "svelte";
   import TypeAhead from "svelte-typeahead";
   import { REQUEST_CONFIG } from "./config";
-  import { dummyCourses } from "./dev-env";
 
   let show = false;
   let courses = [];
 
   async function fetchCourses() {
-    // return (courses = dummyCourses);
     const sessKey = document.head.textContent.match(/sesskey":"(.*?)"/)?.[1];
     if (!sessKey) return;
     const path = `https://moodle.bfh.ch/lib/ajax/service.php?sesskey=${sessKey}&info=core_course_get_enrolled_courses_by_timeline_classification`;
@@ -21,6 +19,8 @@
 
     const json = (await response.json())?.[0];
     if (json.error) return;
+
+    courses = json.data.courses;
   }
 
   function moodleSearchShortcut(e) {
@@ -65,7 +65,7 @@
     position: fixed;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%);
     width: 500px;
 
     padding: 20px;
