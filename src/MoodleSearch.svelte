@@ -48,7 +48,7 @@
   <div class="container">
     <!-- svelte-ignore a11y-autofocus -->
     <TypeAhead
-      placeholder="Modul suche"
+      placeholder="Modul Suche"
       data={courses}
       extract={(item) => item["fullname"]}
       autofocus
