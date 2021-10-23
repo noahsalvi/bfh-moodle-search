@@ -7,6 +7,8 @@ Press `CMD + k` or `CTRL + k` to bring up the module search. By clicking it or p
 
 # Installation
 Copy the file "bfh-moodle-search.js" to your userscripts folder.
+Done.
+
 ### What are userscripts?
 User created javascript scripts, that can be added to a site to enhance the experience. 
 - On Safari => search for **Tamperish** in the AppStore and put the file in [your userscripts folder]/moodle.bfh.ch/bfh-moodle-search.js
