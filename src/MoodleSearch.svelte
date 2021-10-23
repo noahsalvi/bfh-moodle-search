@@ -94,10 +94,8 @@
   }
 
   :global([data-svelte-typeahead] [data-svelte-search] input:focus) {
-    outline-color: #4b647d;
-    outline-offset: 0;
     outline: none;
-    border: 2px solid rgb(133, 133, 133);
+    border: 2px solid rgba(133, 133, 133, 0.7);
   }
 
   :global(.svelte-typeahead-list li) {
