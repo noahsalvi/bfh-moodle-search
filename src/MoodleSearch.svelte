@@ -43,7 +43,6 @@
 </script>
 
 <svelte:window on:keydown={moodleSearchShortcut} />
-
 {#if show}
   <div class="container">
     <!-- svelte-ignore a11y-autofocus -->
@@ -79,7 +78,6 @@
   :global([data-svelte-typeahead] [data-svelte-search] input) {
     margin: 0;
     background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
 
     border: 2px solid $border-color;
@@ -88,9 +86,8 @@
     border-bottom-left-radius: 0;
     border-bottom-right-radius: 0;
     color: white;
-    position: relative;
     padding: 10px 10px;
-    padding-bottom: 5;
+    padding-bottom: 5px;
     font-size: 20px;
 
     box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2),
@@ -106,19 +103,25 @@
     box-sizing: border-box;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
-    border-left: 2px solid $border-color;
-    border-right: 2px solid $border-color;
-    border-bottom: 2px solid $border-color;
+    border: 2px solid $border-color;
+    border-top: none;
     max-width: 100%;
     min-height: 5px;
+
     background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2),
       0 12px 20px 0 rgba(0, 0, 0, 0.19);
 
-    -webkit-backdrop-filter: blur(5px);
-    overflow: hidden;
+    &::before {
+      content: "";
+      z-index: -5;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+
+      backdrop-filter: blur(5px);
+    }
   }
 
   :global(.svelte-typeahead-list li) {
@@ -147,5 +150,17 @@
 
   :global(.svelte-typeahead-list li mark) {
     background: whitesmoke;
+  }
+
+  :global([data-svelte-typeahead]) {
+    &::before {
+      content: "";
+      z-index: -5;
+      position: absolute;
+      height: 100%;
+      width: 100%;
+
+      backdrop-filter: blur(5px);
+    }
   }
 </style>
