@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import TypeAhead from "svelte-typeahead";
-  import { REQUEST_CONFIG } from "./config";
+  import { REQUEST_CONFIG, STORAGE_KEY } from "./config";
 
   let show = false;
   let courses = [];
@@ -12,16 +12,20 @@
     if (!sessKey) return;
     const path = `https://moodle.bfh.ch/lib/ajax/service.php?sesskey=${sessKey}&info=core_course_get_enrolled_courses_by_timeline_classification`;
 
-    const response = await fetch(path, {
-      method: "POST",
-      body: JSON.stringify(REQUEST_CONFIG),
-    });
-    if (!response.ok) return;
+    courses = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+    if (!courses) {
+      const response = await fetch(path, {
+        method: "POST",
+        body: JSON.stringify(REQUEST_CONFIG),
+      });
+      if (!response.ok) return;
 
-    const json = (await response.json())?.[0];
-    if (json.error) return;
+      const json = (await response.json())?.[0];
+      if (json.error) return;
 
-    courses = json.data.courses;
+      courses = json.data.courses;
+      sessionStorage.setItem(STORAGE_KEY, JSON.stringify(courses));
+    }
   }
 
   function moodleSearchShortcut(e) {
@@ -47,12 +51,12 @@
   <div class="container">
     <!-- svelte-ignore a11y-autofocus -->
     <TypeAhead
+      autofocus
+      hideLabel
       placeholder="Modul Suche"
       data={courses}
       extract={(item) => item["fullname"]}
-      autofocus
       on:select={select}
-      hideLabel
       on:blur={() => (show = false)}
     />
   </div>
@@ -149,7 +153,7 @@
   }
 
   :global(.svelte-typeahead-list li mark) {
-    background: whitesmoke;
+    background: none;
   }
 
   :global([data-svelte-typeahead]) {
