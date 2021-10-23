@@ -130,7 +130,7 @@
 
   :global(.svelte-typeahead-list li) {
     background: none;
-    color: white;
+    color: whitesmoke;
     border-radius: 5px;
     border-bottom: none !important;
     margin: 0 8px;
