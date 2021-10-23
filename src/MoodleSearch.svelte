@@ -90,11 +90,14 @@
     position: relative;
     padding: 10px 10px;
     font-size: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
 
   :global([data-svelte-typeahead] [data-svelte-search] input:focus) {
     outline-color: #4b647d;
     outline-offset: 0;
+    outline: none;
+    border: 2px solid rgb(133, 133, 133);
   }
 
   :global(.svelte-typeahead-list li) {
