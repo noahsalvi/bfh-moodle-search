@@ -1,4 +1,4 @@
-export const courses = [
+export const dummyCourses = [
   {
     id: 9403,
     fullname: "Bibliotheken TI",
