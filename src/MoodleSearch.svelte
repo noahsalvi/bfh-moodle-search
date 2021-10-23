@@ -54,8 +54,6 @@
       autofocus
       on:select={select}
       hideLabel
-      class="type-ahead"
-      value="al"
       on:blur={() => (show = false)}
     />
   </div>
