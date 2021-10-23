@@ -2,12 +2,13 @@
   import { onMount } from "svelte";
   import TypeAhead from "svelte-typeahead";
   import { REQUEST_CONFIG } from "./config";
+  import { dummyCourses } from "./dev-env";
 
-  let show = false;
+  let show = true;
   let courses = [];
 
   async function fetchCourses() {
-    // return (courses = dummyCourses);
+    return (courses = dummyCourses);
     const sessKey = document.head.textContent.match(/sesskey":"(.*?)"/)?.[1];
     if (!sessKey) return;
     const path = `https://moodle.bfh.ch/lib/ajax/service.php?sesskey=${sessKey}&info=core_course_get_enrolled_courses_by_timeline_classification`;
@@ -55,12 +56,14 @@
       on:select={select}
       hideLabel
       class="type-ahead"
-      on:blur={() => (show = false)}
+      value="al"
     />
+    <!-- on:blur={() => (show = false)} -->
   </div>
 {/if}
 
-<style global>
+<style lang="scss">
+  $border-color: rgba(133, 133, 133, 0.7);
   .container {
     z-index: 1000000;
     position: fixed;
@@ -68,9 +71,11 @@
     top: 20%;
     transform: translateX(-50%);
     width: 500px;
+  }
 
-    padding: 20px;
-    border-radius: 20px;
+  .result {
+    width: 100%;
+    background: red;
   }
 
   :global([data-svelte-typeahead]) {
@@ -84,32 +89,65 @@
     background: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    border: 0;
+
+    border: 2px solid $border-color;
     border-radius: 5px;
+    border-bottom: none;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
     color: white;
     position: relative;
     padding: 10px 10px;
     font-size: 20px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    box-shadow: 0 -4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 -6px 20px 0 rgba(0, 0, 0, 0.19);
+
+    &:focus {
+      outline: none;
+    }
   }
 
-  :global([data-svelte-typeahead] [data-svelte-search] input:focus) {
-    outline: none;
-    border: 2px solid rgba(133, 133, 133, 0.7);
+  :global([data-svelte-typeahead] ul.svelte-typeahead-list) {
+    margin: 0;
+    box-sizing: border-box;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-left: 2px solid $border-color;
+    border-right: 2px solid $border-color;
+    border-bottom: 2px solid $border-color;
+    max-width: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.2),
+      0 12px 20px 0 rgba(0, 0, 0, 0.19);
+
+    -webkit-backdrop-filter: blur(5px);
+    overflow: hidden;
   }
 
   :global(.svelte-typeahead-list li) {
-    background: black;
+    background: none;
     color: white;
     border-radius: 5px;
+    border-bottom: none !important;
+    margin: 0 8px;
+
+    &:hover {
+      background: rgb(23, 111, 198) !important;
+    }
+
+    &:first-child {
+      margin-top: 5px;
+    }
+
+    &:last-child {
+      margin-bottom: 5px;
+    }
   }
 
   :global(.svelte-typeahead-list li.selected) {
     background: #4b647d;
-  }
-
-  :global(.svelte-typeahead-list li:hover) {
-    background: rgb(16, 50, 84) !important;
   }
 
   :global(.svelte-typeahead-list li mark) {
