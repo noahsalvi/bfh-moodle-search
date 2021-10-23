@@ -20,7 +20,6 @@
 
     const json = (await response.json())?.[0];
     if (json.error) return;
-    console.log(json.data.courses);
 
     courses = json.data.courses;
   }
@@ -66,8 +65,8 @@
     z-index: 1000000;
     position: fixed;
     left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
+    top: 20%;
+    transform: translateX(-50%);
     width: 500px;
 
     padding: 20px;
