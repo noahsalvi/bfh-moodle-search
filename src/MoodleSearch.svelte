@@ -154,6 +154,7 @@
 
   :global(.svelte-typeahead-list li mark) {
     background: none;
+    color: white;
   }
 
   :global([data-svelte-typeahead]) {
