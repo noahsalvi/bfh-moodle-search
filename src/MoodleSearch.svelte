@@ -7,6 +7,7 @@
   let courses = [];
 
   async function fetchCourses() {
+    // return (courses = dummyCourses);
     const sessKey = document.head.textContent.match(/sesskey":"(.*?)"/)?.[1];
     if (!sessKey) return;
     const path = `https://moodle.bfh.ch/lib/ajax/service.php?sesskey=${sessKey}&info=core_course_get_enrolled_courses_by_timeline_classification`;
@@ -19,6 +20,7 @@
 
     const json = (await response.json())?.[0];
     if (json.error) return;
+    console.log(json.data.courses);
 
     courses = json.data.courses;
   }
