@@ -29,8 +29,9 @@
   }
 
   function moodleSearchShortcut(e) {
-    if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+    if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
       show = !show;
+      e.preventDefault();
     } else if (show && e.key === "Escape") show = false;
   }
 
