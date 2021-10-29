@@ -1,6 +1,7 @@
 # BFH Moodle Search
 
-![ezgif-6-6235d8a0d1b8](https://user-images.githubusercontent.com/46045829/138554665-4de274b2-3ee1-43ec-bba4-090cf2b13c98.gif)
+![ezgif com-gif-maker](https://user-images.githubusercontent.com/46045829/139088161-1d45d75a-1b35-4a24-8e92-f107fbfa04a8.gif)
+
 
 ## Usage
 
