@@ -43,7 +43,6 @@
   }
 
   onMount(() => {
-    alert("Hallo");
     fetchCourses();
   });
 </script>
