@@ -43,6 +43,7 @@
   }
 
   onMount(() => {
+    alert("Hey Tiu, du baka");
     fetchCourses();
   });
 </script>
